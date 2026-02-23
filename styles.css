@@ -64,7 +64,7 @@ body{
   overflow-x:hidden;
 }
 
-/* С†РµР»СЊРЅС‹Р№ С„РѕРЅ Р±РµР· РїРѕР»РѕСЃ/РѕР±СЂРµР·Р°РЅРёР№: РѕС‚РґРµР»СЊРЅС‹Р№ С„РёРєСЃРёСЂРѕРІР°РЅРЅС‹Р№ СЃР»РѕР№ */
+/* цельный фон без полос/обрезаний: отдельный фиксированный слой */
 body::before{
   content:"";
   position: fixed;
@@ -78,7 +78,7 @@ body::before{
     linear-gradient(180deg, #fbfbff 0%, #f1f3ff 55%, #f6f7fb 100%);
 }
 
-/* Brandbook shapes (PNG) вЂ” tinted via CSS masks. */
+/* Brandbook shapes (PNG) — tinted via CSS masks. */
 body::after{
   content:"";
   position: fixed;
@@ -103,13 +103,13 @@ strong{ font-weight: 800; }
 
 /* ---------------- Header (scrolls normally) ---------------- */
 .topbar{
-  position: relative;   /* Р’РђР–РќРћ: РЅРµ sticky/fixed */
+  position: relative;   /* ВАЖНО: не sticky/fixed */
   background: rgba(255,255,255,.90);
   backdrop-filter: saturate(150%) blur(14px);
   border-bottom: 1px solid rgba(15,23,42,.08);
 }
 
-/* РўРѕРЅРєРёР№ Р±СЂРµРЅРґ-С€С‚СЂРёС… РїРѕРґ С€Р°РїРєРѕР№ (Р±РµР· СЃРёРЅРµРіРѕ+Р¶С‘Р»С‚РѕРіРѕ СЂСЏРґРѕРј) */
+/* Тонкий бренд-штрих под шапкой (без синего+жёлтого рядом) */
 .topbar::after{
   content:"";
   position:absolute;
@@ -132,7 +132,7 @@ strong{ font-weight: 800; }
 .brand .title{
   margin:0;
   font-size: clamp(26px, 2.4vw, 34px);
-  font-weight: 800; /* РЅРµ В«СЃСѓРїРµСЂР¶РёСЂРЅРѕВ» */
+  font-weight: 800; /* не «супержирно» */
   letter-spacing: -0.02em;
   line-height: 1.05;
 }
@@ -144,7 +144,7 @@ strong{ font-weight: 800; }
   max-width: 78ch;
 }
 
-/* РџРѕ Р·Р°РїСЂРѕСЃСѓ: СѓР±СЂР°С‚СЊ РїРѕРґРїРёСЃСЊ Рё ESC-Р±РµР№РґР¶ (РЅРµ С‚СЂРѕРіР°РµРј HTML) */
+/* По запросу: убрать подпись и ESC-бейдж (не трогаем HTML) */
 .brand .subtitle{ display:none !important; }
 .kbd{ display:none !important; }
 
@@ -167,7 +167,7 @@ strong{ font-weight: 800; }
 .layout{
   width: min(1180px, 100%);
   margin: 0 auto;
-  padding: 14px 16px 22px; /* РјРµРЅСЊС€Рµ В«РґС‹СЂРѕРєВ» */
+  padding: 14px 16px 22px; /* меньше «дырок» */
   display:grid;
   grid-template-columns: var(--sidebarW) 1fr;
   gap: var(--gap);
@@ -175,7 +175,7 @@ strong{ font-weight: 800; }
   position: relative;
 }
 
-/* Р’С‚РѕСЂРѕР№ РґРµРєРѕСЂР°С‚РёРІРЅС‹Р№ СЌР»РµРјРµРЅС‚ (Р·РµР»С‘РЅС‹Р№), РЅРµ СЂСЏРґРѕРј СЃ СЃРёРЅРёРј/Р¶С‘Р»С‚С‹Рј */
+/* Второй декоративный элемент (зелёный), не рядом с синим/жёлтым */
 .layout::after{
   content:"";
   position:absolute;
@@ -207,21 +207,21 @@ strong{ font-weight: 800; }
   background: rgba(255,255,255,.92);
   border: 1px solid rgba(15,23,42,.08);
   box-shadow: var(--shadow);
-  overflow:hidden; /* СЂРµР¶РµРј РїРѕ СЂР°РґРёСѓСЃСѓ */
+  overflow:hidden; /* режем по радиусу */
 }
 
 /* Filters */
 .filters{
   padding: 16px;
   position: sticky;
-  top: 16px; /* С‡С‚РѕР±С‹ В«РІС‹С€Рµ Р·Р°РєСЂРµРїР»СЏР»СЃСЏВ» */
+  top: 16px; /* чтобы «выше закреплялся» */
 }
 
 @media (max-width: 1040px){
   .filters{
     position: static;
     top: auto;
-    padding: 16px;     /* Р’РђР–РќРћ: РЅРµ 0, С‡С‚РѕР±С‹ РЅРµ СѓРїРёСЂР°Р»РѕСЃСЊ РІ РєСЂР°СЏ */
+    padding: 16px;     /* ВАЖНО: не 0, чтобы не упиралось в края */
   }
 }
 
@@ -279,10 +279,10 @@ strong{ font-weight: 800; }
   color: rgba(15,23,42,.92);
 }
 
-/* РџРѕ Р·Р°РїСЂРѕСЃСѓ: СѓР±СЂР°С‚СЊ Р°РЅРіР»РёР№СЃРєРѕРµ AND/OR, РѕСЃС‚Р°РІРёС‚СЊ С‚РѕР»СЊРєРѕ СЂСѓСЃСЃРєРёР№ С‚РµРєСЃС‚ */
+/* По запросу: убрать английское AND/OR, оставить только русский текст */
 #modeAnd, #modeOr{ font-size:0 !important; }
-#modeAnd::before{ content:"Р"; font-size:12px; }
-#modeOr::before{ content:"РР›Р"; font-size:12px; }
+#modeAnd::before{ content:"И"; font-size:12px; }
+#modeOr::before{ content:"ИЛИ"; font-size:12px; }
 
 .btn{
   border: 1px solid rgba(15,23,42,.12);
@@ -510,7 +510,7 @@ pre.fulltext{
 
 /* ===== PATCH: titles less cut, grey badges more cut, modal spacing stable ===== */
 
-/* 1) РљР°СЂС‚РѕС‡РєРё: РЅР°Р·РІР°РЅРёРµ РёРіСЂС‹ вЂ” 2 СЃС‚СЂРѕРєРё РІРјРµСЃС‚Рѕ 1 (РјРёРЅРёРјСѓРј РѕР±СЂРµР·РєРё) */
+/* 1) Карточки: название игры — 2 строки вместо 1 (минимум обрезки) */
 .card-title{
   white-space: normal !important;
   overflow: hidden !important;
@@ -524,25 +524,25 @@ pre.fulltext{
   max-height: calc(1.18em * 2) !important;
 }
 
-/* 2) РЎРµСЂС‹Рµ РїР»Р°С€РєРё (badge) вЂ” РЅР°РѕР±РѕСЂРѕС‚ СЂРµР¶РµРј Р°РіСЂРµСЃСЃРёРІРЅРѕ */
+/* 2) Серые плашки (badge) — наоборот режем агрессивно */
 .badge{
-  max-width: 220px !important;   /* РґР»СЏ РєР°СЂС‚РѕС‡РµРє */
+  max-width: 220px !important;   /* для карточек */
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   white-space: nowrap !important;
 }
 
-/* Р’ РјРѕРґР°Р»РєРµ #mSection вЂ” С‚РѕР¶Рµ badge, РґРµР»Р°РµРј РµС‰С‘ РєРѕСЂРѕС‡Рµ */
+/* В модалке #mSection — тоже badge, делаем ещё короче */
 #mSection.badge{
-  max-width: 240px !important;   /* РїРѕРґР±РµСЂРё 180вЂ“260 РµСЃР»Рё С…РѕС‡РµС€СЊ */
+  max-width: 240px !important;   /* подбери 180–260 если хочешь */
 }
 
-/* 3) РњРѕРґР°Р»РєР°: С‡С‚РѕР±С‹ РЅРёС‡РµРіРѕ РЅРµ вЂњСЂР°Р·СЉРµР·Р¶Р°Р»РѕСЃСЊвЂќ вЂ” min-width:0 РґР»СЏ ellipsis */
+/* 3) Модалка: чтобы ничего не “разъезжалось” — min-width:0 для ellipsis */
 .dialog-header{ gap: 14px !important; }
 .dialog-header > div{ min-width: 0 !important; }
 .dialog-header .meta{ min-width: 0 !important; }
 
-/* С‚РµРіРё РІ РјРѕРґР°Р»РєРµ: РѕРґРЅР° СЃС‚СЂРѕРєР°, СЂРµР¶РµРј */
+/* теги в модалке: одна строка, режем */
 #mTagsLine{
   display: block !important;
   max-width: 54ch !important;
@@ -551,7 +551,7 @@ pre.fulltext{
   white-space: nowrap !important;
 }
 
-/* Р·Р°РіРѕР»РѕРІРѕРє РёРіСЂС‹ РІ РјРѕРґР°Р»РєРµ РјРѕР¶РЅРѕ РЅР° 2 СЃС‚СЂРѕРєРё */
+/* заголовок игры в модалке можно на 2 строки */
 #mTitle{
   white-space: normal !important;
   overflow: hidden !important;
@@ -562,7 +562,7 @@ pre.fulltext{
   -webkit-line-clamp: 2 !important;
 }
 
-/* 4) РћС‚СЃС‚СѓРїС‹ РІ РјРѕРґР°Р»РєРµ (С‡С‚РѕР±С‹ вЂњРЅРµ Р»РµС‚Р°Р»РёвЂќ) */
+/* 4) Отступы в модалке (чтобы “не летали”) */
 .dialog-body{
   padding: 16px !important;
   gap: 14px !important;
@@ -579,22 +579,22 @@ pre.fulltext{
 }
 
 .dialog-header .meta{
-  flex-wrap: nowrap !important;      /* РєР»СЋС‡РµРІРѕРµ: РќР• РїРµСЂРµРЅРѕСЃРёС‚СЊ */
-  overflow: hidden !important;       /* РІСЃС‘ Р»РёС€РЅРµРµ СЂРµР¶РµРј */
+  flex-wrap: nowrap !important;      /* ключевое: НЕ переносить */
+  overflow: hidden !important;       /* всё лишнее режем */
   min-width: 0 !important;
   max-width: 100% !important;
 }
 
-/* СЃРµСЂСѓСЋ РїР»Р°С€РєСѓ (СЂР°Р·РґРµР») РґРµР»Р°РµРј РєРѕСЂРѕС‚РєРѕР№ Рё СЂРµР¶РµРј */
+/* серую плашку (раздел) делаем короткой и режем */
 #mSection.badge{
   flex: 0 1 auto !important;
-  max-width: 220px !important;       /* РјРѕР¶РµС€СЊ 180вЂ“260 */
+  max-width: 220px !important;       /* можешь 180–260 */
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   white-space: nowrap !important;
 }
 
-/* С‚РµРіРё вЂ” РїСѓСЃС‚СЊ Р·Р°РЅРёРјР°СЋС‚ РѕСЃС‚Р°С‚РѕРє Рё С‚РѕР¶Рµ СЂРµР¶СѓС‚СЃСЏ */
+/* теги — пусть занимают остаток и тоже режутся */
 #mTagsLine{
   flex: 1 1 auto !important;
   min-width: 0 !important;
@@ -608,13 +608,13 @@ pre.fulltext{
 .card-title{
   display: -webkit-box !important;
   -webkit-box-orient: vertical !important;
-  -webkit-line-clamp: 2 !important;   /* РјР°РєСЃРёРјСѓРј 2 СЃС‚СЂРѕРєРё */
+  -webkit-line-clamp: 2 !important;   /* максимум 2 строки */
 
   overflow: hidden !important;
   text-overflow: ellipsis !important;
 
-  white-space: normal !important;     /* РІР°Р¶РЅРѕ: РќР• nowrap */
-  word-break: normal !important;      /* РЅРµ Р»РѕРјР°РµРј СЃР»РѕРІРѕ */
+  white-space: normal !important;     /* важно: НЕ nowrap */
+  word-break: normal !important;      /* не ломаем слово */
   overflow-wrap: break-word !important;
 
   line-height: 1.2 !important;
@@ -646,39 +646,39 @@ pre.fulltext{
 /* ===== Fix spacing inside modal title ===== */
 
 #mTitle{
-  margin: 0 !important;           /* СѓР±РёСЂР°РµРј Р»РёС€РЅРёР№ РІРЅРµС€РЅРёР№ РѕС‚СЃС‚СѓРї */
-  line-height: 1.15 !important;   /* РїР»РѕС‚РЅРµРµ СЃС‚СЂРѕРєРё */
+  margin: 0 !important;           /* убираем лишний внешний отступ */
+  line-height: 1.15 !important;   /* плотнее строки */
 }
 
-/* РѕС‚СЃС‚СѓРї РјРµР¶РґСѓ Р·Р°РіРѕР»РѕРІРєРѕРј Рё СЃРµСЂРѕР№ РїР»Р°С€РєРѕР№ */
+/* отступ между заголовком и серой плашкой */
 .dialog-header .meta{
   margin-top: 6px !important;
 }
 
-/* РµСЃР»Рё РµСЃС‚СЊ Р±РѕР»СЊС€РѕР№ gap РІ header */
+/* если есть большой gap в header */
 .dialog-header{
   gap: 10px !important;
 }
 
 /* ===== FIX: modal spacing (only inside opened card window) ===== */
 
-/* 1) Р—Р°РіРѕР»РѕРІРѕРє РјРѕРґР°Р»РєРё: РЅРѕСЂРјР°Р»СЊРЅС‹Р№ РёРЅС‚РµСЂРІР°Р» РјРµР¶РґСѓ СЃС‚СЂРѕРєР°РјРё Рё Р±Р»РѕРєР°РјРё */
+/* 1) Заголовок модалки: нормальный интервал между строками и блоками */
 #mTitle{
   margin: 0 !important;
-  line-height: 1.12 !important;     /* РїР»РѕС‚РЅРµРµ, РЅРѕ РќР• СЃР»РёРїР°РµС‚СЃСЏ */
-  padding-bottom: 8px !important;   /* РѕС‚СЃС‚СѓРї РґРѕ РјРµС‚Р°-СЃС‚СЂРѕРєРё */
+  line-height: 1.12 !important;     /* плотнее, но НЕ слипается */
+  padding-bottom: 8px !important;   /* отступ до мета-строки */
 }
 
-/* 2) РњРµС‚Р°-СЃС‚СЂРѕРєР° (СЃРµСЂС‹Р№ СЂР°Р·РґРµР» + С‚РµРіРё): РЅРµ СЃР»РёРїР°РµС‚СЃСЏ Рё РЅРµ Р»РѕРјР°РµС‚ С€РёСЂРёРЅСѓ */
+/* 2) Мета-строка (серый раздел + теги): не слипается и не ломает ширину */
 .dialog-header .meta{
   margin-top: 0 !important;
   gap: 10px !important;
   row-gap: 8px !important;
-  flex-wrap: wrap !important;       /* РєР»СЋС‡: СЂР°Р·СЂРµС€Р°РµРј РїРµСЂРµРЅРѕСЃ, С‡С‚РѕР±С‹ РЅРµ РЅР°Р»РµР·Р°Р»Рѕ */
+  flex-wrap: wrap !important;       /* ключ: разрешаем перенос, чтобы не налезало */
   align-items: center !important;
 }
 
-/* 3) РЎРµСЂСѓСЋ РїР»Р°С€РєСѓ РґРµР»Р°РµРј РєРѕРјРїР°РєС‚РЅРѕР№ (Рё РѕРЅР° РЅРµ РґР°РІРёС‚ РЅР° С‚РµРіРё) */
+/* 3) Серую плашку делаем компактной (и она не давит на теги) */
 #mSection.badge{
   max-width: 220px !important;
   overflow: hidden !important;
@@ -686,7 +686,7 @@ pre.fulltext{
   white-space: nowrap !important;
 }
 
-/* 4) РўРµРіРё: РµСЃР»Рё РґР»РёРЅРЅРѕ вЂ” СЂРµР¶РµРј РІ РѕРґРЅСѓ СЃС‚СЂРѕРєСѓ, РЅРѕ СЃ РЅРѕСЂРјР°Р»СЊРЅС‹Рј Р»Р°Р№РЅС…Р°Р№С‚РѕРј */
+/* 4) Теги: если длинно — режем в одну строку, но с нормальным лайнхайтом */
 #mTagsLine{
   line-height: 1.25 !important;
   max-width: 70ch !important;
@@ -695,24 +695,24 @@ pre.fulltext{
   white-space: nowrap !important;
 }
 
-/* 5) РўРµРєСЃС‚ РІРЅСѓС‚СЂРё РјРѕРґР°Р»РєРё (pre): С‡Р°СЃС‚Рѕ вЂњСЃР»РёРїР°РµС‚СЃСЏвЂќ РёР·-Р·Р° line-height/padding */
+/* 5) Текст внутри модалки (pre): часто “слипается” из-за line-height/padding */
 pre.fulltext{
   line-height: 1.55 !important;
   padding: 16px !important;
 }
 /* ===== Modal: hide header tags/section line ===== */
 
-/* СЃРєСЂС‹РІР°РµРј РІСЃСЋ СЃС‚СЂРѕРєСѓ СЃ СЂР°Р·РґРµР»РѕРј + "РўРµРіРё ..." */
+/* скрываем всю строку с разделом + "Теги ..." */
 .dialog-header .left .s{
   display: none !important;
 }
 
-/* РЅР° РІСЃСЏРєРёР№ СЃР»СѓС‡Р°Р№ С‚РѕС‡РµС‡РЅРѕ (РµСЃР»Рё РіРґРµ-С‚Рѕ РІСЃРїР»С‹РІР°РµС‚ РѕС‚РґРµР»СЊРЅРѕ) */
+/* на всякий случай точечно (если где-то всплывает отдельно) */
 #mSection, #mTags, #mTagsLine{
   display: none !important;
 }
 
-/* С‡СѓС‚СЊ РїРѕРґС‚СЏРЅСѓС‚СЊ РѕС‚СЃС‚СѓРїС‹, С‡С‚РѕР±С‹ РЅРµ РѕСЃС‚Р°РІР°Р»Р°СЃСЊ РїСѓСЃС‚Р°СЏ вЂњРґС‹СЂРєР°вЂќ */
+/* чуть подтянуть отступы, чтобы не оставалась пустая “дырка” */
 .dialog-header{
   padding-bottom: 12px !important;
 }
@@ -722,25 +722,25 @@ pre.fulltext{
 
 /* ===== Tight modal header spacing ===== */
 
-/* СѓРјРµРЅСЊС€Р°РµРј РІРЅСѓС‚СЂРµРЅРЅРёР№ РїР°РґРґРёРЅРі С€Р°РїРєРё */
+/* уменьшаем внутренний паддинг шапки */
 .dialog-header{
-  padding: 14px 20px !important;   /* Р±С‹Р»Рѕ Р±РѕР»СЊС€Рµ */
+  padding: 14px 20px !important;   /* было больше */
   border-bottom: 1px solid rgba(15,23,42,.08) !important;
 }
 
-/* СѓР±РёСЂР°РµРј Р»РёС€РЅРёР№ РЅРёР¶РЅРёР№ Р·Р°Р·РѕСЂ */
+/* убираем лишний нижний зазор */
 .dialog-header .left{
   gap: 4px !important;
 }
 
-/* СЃР°Рј Р·Р°РіРѕР»РѕРІРѕРє Р±РµР· Р»РёС€РЅРёС… РѕС‚СЃС‚СѓРїРѕРІ */
+/* сам заголовок без лишних отступов */
 #mTitle{
   margin: 0 !important;
   padding: 0 !important;
   line-height: 1.1 !important;
 }
 
-/* С‚РµР»Рѕ РјРѕРґР°Р»РєРё РїРѕРґРЅРёРјР°РµРј С‡СѓС‚СЊ РІС‹С€Рµ */
+/* тело модалки поднимаем чуть выше */
 .dialog-body{
   padding-top: 12px !important;
 }
@@ -754,22 +754,22 @@ pre.fulltext{
   position: relative !important;
   display: flex !important;
   align-items: center !important;
-  justify-content: center !important; /* С†РµРЅС‚СЂРёСЂСѓРµРј СЃРѕРґРµСЂР¶РёРјРѕРµ */
+  justify-content: center !important; /* центрируем содержимое */
 }
 
-/* Р»РµРІР°СЏ С‡Р°СЃС‚СЊ (РіРґРµ Р·Р°РіРѕР»РѕРІРѕРє) вЂ” СѓР±РёСЂР°РµРј РІР»РёСЏРЅРёРµ flex */
+/* левая часть (где заголовок) — убираем влияние flex */
 .dialog-header .left{
   width: 100% !important;
   text-align: center !important;
 }
 
-/* СЃР°Рј Р·Р°РіРѕР»РѕРІРѕРє */
+/* сам заголовок */
 #mTitle{
   margin: 0 auto !important;
   text-align: center !important;
 }
 
-/* РєРЅРѕРїРєСѓ С„РёРєСЃРёСЂСѓРµРј СЃРїСЂР°РІР° Р°Р±СЃРѕР»СЋС‚РЅРѕ */
+/* кнопку фиксируем справа абсолютно */
 .dialog-header .btn,
 .dialog-header button{
   position: absolute !important;
@@ -780,38 +780,38 @@ pre.fulltext{
 
 @media (max-width: 768px){
 
-  /* РєРѕРЅС‚РµР№РЅРµСЂ РјРѕРґР°Р»РєРё */
+  /* контейнер модалки */
   .modal{
-    align-items: flex-start !important;   /* РЅРµ РїРѕ С†РµРЅС‚СЂСѓ */
+    align-items: flex-start !important;   /* не по центру */
     padding: 10px !important;
   }
 
-  /* СЃР°РјР° РјРѕРґР°Р»РєР° */
+  /* сама модалка */
   .dialog{
     width: 100% !important;
-    max-height: 100dvh !important;   /* РѕРіСЂР°РЅРёС‡РµРЅРёРµ СЌРєСЂР°РЅРѕРј */
+    max-height: 100dvh !important;   /* ограничение экраном */
     height: 100dvh !important;
 
     display: flex !important;
     flex-direction: column !important;
 
-    overflow: hidden !important;     /* СЃРєСЂРѕР»Р»РёРј РўРћР›Р¬РљРћ С‚РµР»Рѕ */
+    overflow: hidden !important;     /* скроллим ТОЛЬКО тело */
   }
 
-  /* С€Р°РїРєР° С„РёРєСЃРёСЂРѕРІР°РЅРЅР°СЏ */
+  /* шапка фиксированная */
   .dialog-header{
     flex: 0 0 auto !important;
   }
 
-  /* Р’РћРў Р—Р”Р•РЎР¬ РЎРљР РћР›Р› */
+  /* ВОТ ЗДЕСЬ СКРОЛЛ */
   .dialog-body{
     flex: 1 1 auto !important;
-    min-height: 0 !important;              /* РљР РРўРР§РќРћ */
+    min-height: 0 !important;              /* КРИТИЧНО */
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch;
   }
 
-  /* С‡С‚РѕР±С‹ С‚РµРєСЃС‚ РЅРѕСЂРјР°Р»СЊРЅРѕ РїРµСЂРµРЅРѕСЃРёР»СЃСЏ */
+  /* чтобы текст нормально переносился */
   pre.fulltext{
     white-space: pre-wrap !important;
     word-break: break-word !important;
@@ -821,7 +821,7 @@ pre.fulltext{
 
 @media (max-width: 768px){
 
-  /* РјРѕРґР°Р»РєР° РІР»РµР·Р°РµС‚ РІ СЌРєСЂР°РЅ */
+  /* модалка влезает в экран */
   .dialog{
     max-height: 92dvh !important;
     height: 92dvh !important;
@@ -830,7 +830,7 @@ pre.fulltext{
     overflow: hidden !important;
   }
 
-  /* С‚РµР»Рѕ Р·Р°РЅРёРјР°РµС‚ РѕСЃС‚Р°С‚РѕРє, РЅРѕ Р±РµР· СЃРєСЂРѕР»Р»Р° (СЃРєСЂРѕР»Р»РёРј С‚РµРєСЃС‚РѕРІС‹Р№ Р±Р»РѕРє) */
+  /* тело занимает остаток, но без скролла (скроллим текстовый блок) */
   .dialog-body{
     flex: 1 1 auto !important;
     min-height: 0 !important;
@@ -838,10 +838,10 @@ pre.fulltext{
     padding: 12px !important;
   }
 
-  /* РІРѕС‚ СЌС‚РѕС‚ Р±Р»РѕРє (СЃ РѕРїРёСЃР°РЅРёРµРј) РґРµР»Р°РµРј РїСЂРѕРєСЂСѓС‡РёРІР°РµРјС‹Рј */
+  /* вот этот блок (с описанием) делаем прокручиваемым */
   pre.fulltext{
-    max-height: 100% !important;       /* Р·Р°РЅРёРјР°РµС‚ РґРѕСЃС‚СѓРїРЅСѓСЋ РІС‹СЃРѕС‚Сѓ body */
-    overflow-y: auto !important;       /* СЃРєСЂРѕР»Р» */
+    max-height: 100% !important;       /* занимает доступную высоту body */
+    overflow-y: auto !important;       /* скролл */
     -webkit-overflow-scrolling: touch;
 
     white-space: pre-wrap !important;
@@ -851,7 +851,7 @@ pre.fulltext{
     margin: 0 !important;
   }
 
-  /* РµСЃР»Рё РµСЃС‚СЊ РєР°СЂС‚РёРЅРєРё СЃРІРµСЂС…Сѓ, С‡С‚РѕР±С‹ РѕРЅРё РЅРµ вЂњСЃСЉРµРґР°Р»РёвЂќ РІСЃС‘ РјРµСЃС‚Рѕ */
+  /* если есть картинки сверху, чтобы они не “съедали” всё место */
   .imgstrip{
     flex: 0 0 auto !important;
     max-height: 34vh !important;
@@ -861,27 +861,27 @@ pre.fulltext{
 }
 /* ===== Modal images: show full vertical images nicely ===== */
 
-/* РєРѕРЅС‚РµР№РЅРµСЂ РїСЂРµРІСЊСЋ РїСѓСЃС‚СЊ С†РµРЅС‚СЂРёСЂСѓРµС‚ Рё РґР°С‘С‚ Р°РєРєСѓСЂР°С‚РЅС‹Р№ С„РѕРЅ */
+/* контейнер превью пусть центрирует и даёт аккуратный фон */
 figure.preview{
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  background: rgba(0,0,0,.04) !important;  /* Р»С‘РіРєРёР№ С„РѕРЅ */
+  background: rgba(0,0,0,.04) !important;  /* лёгкий фон */
 }
 
-/* РіР»Р°РІРЅРѕРµ: РќР• СЂРµР·Р°С‚СЊ, Р° РІРїРёСЃС‹РІР°С‚СЊ */
+/* главное: НЕ резать, а вписывать */
 figure.preview img{
   width: 100% !important;
   height: 100% !important;
-  max-height: 52vh !important;      /* С‡С‚РѕР±С‹ РЅРµ СЃСЉРµРґР°Р»Р° РІРµСЃСЊ СЌРєСЂР°РЅ */
-  object-fit: contain !important;   /* РІРјРµСЃС‚Рѕ cover */
+  max-height: 52vh !important;      /* чтобы не съедала весь экран */
+  object-fit: contain !important;   /* вместо cover */
   object-position: center !important;
   background: transparent !important;
 }/* ===================================
    UNIVERSAL MODAL SCROLL FIX
    =================================== */
 
-/* РјРѕРґР°Р»РєР° РЅРµ РґРѕР»Р¶РЅР° СЂР°СЃС‚Рё Р±РµСЃРєРѕРЅРµС‡РЅРѕ */
+/* модалка не должна расти бесконечно */
 .dialog{
   max-height: 90vh !important;
   display: flex !important;
@@ -889,21 +889,21 @@ figure.preview img{
   overflow: hidden !important;
 }
 
-/* С€Р°РїРєР° С„РёРєСЃРёСЂРѕРІР°РЅР° РІРЅСѓС‚СЂРё */
+/* шапка фиксирована внутри */
 .dialog-header{
   flex: 0 0 auto !important;
 }
 
-/* С‚РµР»Рѕ Р·Р°РЅРёРјР°РµС‚ РѕСЃС‚Р°С‚РѕРє */
+/* тело занимает остаток */
 .dialog-body{
   flex: 1 1 auto !important;
-  min-height: 0 !important;       /* РљР РРўРР§РќРћ РґР»СЏ flex */
+  min-height: 0 !important;       /* КРИТИЧНО для flex */
   overflow: hidden !important;
   display: flex !important;
   flex-direction: column !important;
 }
 
-/* Р’РћРў РћРќ вЂ” СЃРєСЂРѕР»Р»СЏС‰РёР№СЃСЏ Р±Р»РѕРє */
+/* ВОТ ОН — скроллящийся блок */
 pre.fulltext{
   flex: 1 1 auto !important;
   min-height: 0 !important;
@@ -921,7 +921,7 @@ pre.fulltext{
    ========================================= */
 
 .dialog{
-  /* РјРѕРґР°Р»РєР° РЅРµ РІС‹С€Рµ СЌРєСЂР°РЅР° */
+  /* модалка не выше экрана */
   max-height: 90vh !important;
   display: flex !important;
   flex-direction: column !important;
@@ -930,14 +930,14 @@ pre.fulltext{
 
 .dialog-body{
   flex: 1 1 auto !important;
-  min-height: 0 !important;          /* РєСЂРёС‚РёС‡РЅРѕ РґР»СЏ СЃРєСЂРѕР»Р»Р° */
+  min-height: 0 !important;          /* критично для скролла */
   overflow: hidden !important;
   display: flex !important;
   flex-direction: column !important;
   gap: 12px !important;
 }
 
-/* РљРђР РўРРќРљР: РЅРµ РґР°РІРёРј С‚РµРєСЃС‚ РІРЅРёР· Р±РµСЃРєРѕРЅРµС‡РЅРѕ */
+/* КАРТИНКИ: не давим текст вниз бесконечно */
 .imgstrip{
   flex: 0 0 auto !important;
   max-height: 42vh !important;
@@ -945,13 +945,13 @@ pre.fulltext{
   -webkit-overflow-scrolling: touch;
 }
 
-/* РћРџРРЎРђРќРР•: РїРѕРґР¶РёРјР°РµС‚СЃСЏ РїРѕРґ РєРѕСЂРѕС‚РєРёР№ С‚РµРєСЃС‚,
-   РЅРѕ РµСЃР»Рё С‚РµРєСЃС‚Р° РјРЅРѕРіРѕ вЂ” РїРѕСЏРІР»СЏРµС‚СЃСЏ СЃРєСЂРѕР»Р» */
+/* ОПИСАНИЕ: поджимается под короткий текст,
+   но если текста много — появляется скролл */
 pre.fulltext{
-  flex: 0 1 auto !important;         /* РќР• СЂР°СЃС‚СЏРіРёРІР°РµРј РІСЃРµРіРґР° */
+  flex: 0 1 auto !important;         /* НЕ растягиваем всегда */
   min-height: 0 !important;
 
-  max-height: 46vh !important;       /* РѕРіСЂР°РЅРёС‡РµРЅРёРµ вЂ” Р±СѓРґРµС‚ СЃРєСЂРѕР»Р» */
+  max-height: 46vh !important;       /* ограничение — будет скролл */
   overflow-y: auto !important;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
@@ -962,20 +962,20 @@ pre.fulltext{
   margin: 0 !important;
 }
 
-/* РќР° РјРѕР±РёР»РєРµ С‡СѓС‚СЊ Р±РѕР»СЊС€Рµ РјРµСЃС‚Р° РїРѕРґ С‚РµРєСЃС‚ */
+/* На мобилке чуть больше места под текст */
 @media (max-width: 768px){
   pre.fulltext{ max-height: 52vh !important; }
   .imgstrip{ max-height: 36vh !important; }
 }
 /* ===================================
-   MODAL SIZE вЂ” NORMAL BEHAVIOR
+   MODAL SIZE — NORMAL BEHAVIOR
    =================================== */
 
-/* СЃР°РјРѕ РѕРєРЅРѕ */
+/* само окно */
 .dialog{
   width: min(860px, 92vw) !important;
-  max-height: 85vh !important;      /* РЅРµ РЅР° РІРµСЃСЊ СЌРєСЂР°РЅ */
-  height: auto !important;          /* РїРѕРґР¶РёРјР°РµС‚СЃСЏ РїРѕРґ РєРѕРЅС‚РµРЅС‚ */
+  max-height: 85vh !important;      /* не на весь экран */
+  height: auto !important;          /* поджимается под контент */
 
   display: flex !important;
   flex-direction: column !important;
@@ -983,16 +983,16 @@ pre.fulltext{
   overflow: hidden !important;
 }
 
-/* С‚РµР»Рѕ */
+/* тело */
 .dialog-body{
   flex: 1 1 auto !important;
   min-height: 0 !important;
   overflow: hidden !important;
 }
 
-/* РѕРїРёСЃР°РЅРёРµ */
+/* описание */
 pre.fulltext{
-  max-height: 55vh !important;      /* РµСЃР»Рё РґР»РёРЅРЅС‹Р№ С‚РµРєСЃС‚ вЂ” СЃРєСЂРѕР»Р» */
+  max-height: 55vh !important;      /* если длинный текст — скролл */
   overflow-y: auto !important;
   -webkit-overflow-scrolling: touch;
 
@@ -1002,7 +1002,7 @@ pre.fulltext{
   margin: 0 !important;
 }
 
-/* РµСЃР»Рё С‚РµРєСЃС‚Р° РјР°Р»Рѕ вЂ” РѕРєРЅРѕ РЅРµ СЂР°СЃС‚СЏРіРёРІР°РµС‚СЃСЏ */
+/* если текста мало — окно не растягивается */
 pre.fulltext:only-child{
   max-height: none !important;
 }
@@ -1020,7 +1020,7 @@ pre.fulltext:only-child{
 }
 
 /* =========================
-   FINAL FIX вЂ” no overlap ever
+   FINAL FIX — no overlap ever
    ========================= */
 
 .dialog-header{
@@ -1032,7 +1032,7 @@ pre.fulltext:only-child{
 }
 
 .dialog-header .left{
-  min-width: 0 !important;      /* РєСЂРёС‚РёС‡РЅРѕ */
+  min-width: 0 !important;      /* критично */
 }
 
 #mTitle{
@@ -1042,7 +1042,7 @@ pre.fulltext:only-child{
   word-break: break-word !important;
 }
 
-/* РїРѕР»РЅРѕСЃС‚СЊСЋ СѓР±РёРІР°РµРј СЃС‚Р°СЂС‹Рµ absolute-РїСЂР°РІРёР»Р° */
+/* полностью убиваем старые absolute-правила */
 .dialog-header button,
 .dialog-header .btn,
 #closeBtn{
