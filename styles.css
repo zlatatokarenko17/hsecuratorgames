@@ -284,97 +284,6 @@ strong{ font-weight: 800; }
 #modeAnd::before{ content:"И"; font-size:12px; }
 #modeOr::before{ content:"ИЛИ"; font-size:12px; }
 
-/* =========================
-   v5 UI fixes (requested)
-   - toggle: simple fill (no "curved stripe")
-   - modal header: no overlap on mobile, title left aligned
-   - all panels/windows: pure white background; only body has gradient
-   ========================= */
-
-/* 1) Windows/panels should be white (no tinted backgrounds) */
-.panel,
-.group-title,
-.card,
-.empty,
-.dialog,
-.dialog-header,
-pre.fulltext{
-  background: #fff !important;
-}
-
-/* Keep subtle separation, but avoid grey wash */
-.badge,
-.tag{
-  background: rgba(15,23,42,.03) !important;
-}
-
-/* 2) Toggle: simple fill for active state */
-.toggle{ background:#fff !important; }
-.toggle button{ position: relative; }
-.toggle button[aria-pressed="true"]{
-  background: rgba(165,111,253,.22) !important; /* violet tint */
-  box-shadow: none !important;
-}
-
-/* 3) Modal header: title left; close button never overlaps */
-.dialog-header{
-  justify-content: flex-start !important;
-}
-.dialog-header .left{
-  flex: 1 1 auto !important;
-  min-width: 0 !important;
-}
-#mTitle{ text-align:left !important; }
-#closeBtn{ flex: 0 0 auto !important; }
-
-/* On small screens stack header: title first, button below (left) */
-@media (max-width: 560px){
-  .dialog-header{
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 12px !important;
-  }
-  #closeBtn{
-    align-self: flex-start !important;
-  }
-}
-
-/* =========================
-   v6 fixes
-   - modal header: ALWAYS left title, no overlap on any width
-   - toggle: remove any stray underline/stripe artifacts
-   ========================= */
-
-/* Modal header as grid is the most robust way to prevent overlap */
-.dialog-header{
-  display: grid !important;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: start !important;
-  column-gap: 14px !important;
-}
-.dialog-header .left{ min-width:0 !important; }
-#mTitle{ text-align:left !important; }
-#closeBtn{ justify-self: end !important; }
-
-@media (max-width: 560px){
-  .dialog-header{
-    grid-template-columns: 1fr !important;
-    row-gap: 12px !important;
-  }
-  #closeBtn{ justify-self: start !important; }
-}
-
-/* Toggle: ensure solid fill only, no background-image or focus stripe */
-.toggle button{
-  outline: none !important;
-  box-shadow: none !important;
-  background-image: none !important;
-}
-.toggle button[aria-pressed="true"]{
-  background-color: rgba(165,111,253,.22) !important;
-  background-image: none !important;
-}
-
 .btn{
   border: 1px solid rgba(15,23,42,.12);
   background: rgba(255,255,255,.86);
@@ -1097,86 +1006,49 @@ pre.fulltext{
 pre.fulltext:only-child{
   max-height: none !important;
 }
-/* ===================================
-   FINAL FIX: MODAL HEADER NEVER OVERLAPS
-   - title always left
-   - close button stays on the right (or drops below on small screens)
-   - kills older "center + absolute button" rules
-   =================================== */
+
+/* ===== FIX: keep Close button inline on mobile (no extra header height) ===== */
+@media (max-width: 560px){
+  .dialog-header{
+    grid-template-columns: minmax(0,1fr) auto !important; /* keep 2 cols */
+    row-gap: 0 !important;
+  }
+  .dialog-header #closeBtn{
+    justify-self: end !important;
+    align-self: start !important;
+  }
+}
+
+/* =========================
+   FINAL FIX — no overlap ever
+   ========================= */
 
 .dialog-header{
   display: grid !important;
   grid-template-columns: minmax(0,1fr) auto !important;
-  align-items: start !important;
-  justify-content: stretch !important;
+  align-items: center !important;
+  column-gap: 16px !important;
+  row-gap: 0 !important;
 }
 
 .dialog-header .left{
-  width: auto !important;
-  min-width: 0 !important;
-  text-align: left !important;
+  min-width: 0 !important;      /* критично */
 }
 
 #mTitle{
-  text-align: left !important;
   margin: 0 !important;
+  text-align: left !important;
   overflow-wrap: anywhere !important;
   word-break: break-word !important;
 }
 
-/* neutralize absolute positioning from older patches */
-.dialog-header #closeBtn,
+/* полностью убиваем старые absolute-правила */
+.dialog-header button,
 .dialog-header .btn,
-.dialog-header button{
+#closeBtn{
   position: static !important;
   right: auto !important;
   top: auto !important;
   justify-self: end !important;
-  align-self: start !important;
-}
-
-@media (max-width: 560px){
-  .dialog-header{
-    grid-template-columns: 1fr !important;
-    row-gap: 10px !important;
-  }
-  .dialog-header #closeBtn{
-    justify-self: start !important;
-  }
-}
-/* ===== FINAL: header without overlap and without extra gap ===== */
-
-.dialog-header{
-  display: grid !important;
-  grid-template-columns: minmax(0,1fr) auto !important;
-  align-items: start !important;
-  column-gap: 12px !important;
-  row-gap: 0 !important;
-  padding: 16px 20px 8px !important; /* меньше снизу */
-}
-
-.dialog-header .left{
-  min-width: 0 !important;   /* критично для переноса */
-}
-
-#mTitle{
-  margin: 0 !important;
-  line-height: 1.1 !important;
-  overflow-wrap: anywhere !important;  /* переносится */
-  word-break: break-word !important;
-}
-
-.dialog-body{
-  padding-top: 8px !important;  /* убираем ощущение “дыры” */
-}
-/* ===== Align modal title vertically with Close button ===== */
-
-.dialog-header{
-  align-items: center !important;   /* вместо start */
-}
-
-#mTitle{
-  line-height: 1.15 !important;
-  display: flex !important;
-  align-items: center !important;
+  align-self: center !important;
 }
