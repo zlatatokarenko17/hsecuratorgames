@@ -1144,3 +1144,39 @@ pre.fulltext:only-child{
     justify-self: start !important;
   }
 }
+/* ===== FINAL: header without overlap and without extra gap ===== */
+
+.dialog-header{
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) auto !important;
+  align-items: start !important;
+  column-gap: 12px !important;
+  row-gap: 0 !important;
+  padding: 16px 20px 8px !important; /* меньше снизу */
+}
+
+.dialog-header .left{
+  min-width: 0 !important;   /* критично для переноса */
+}
+
+#mTitle{
+  margin: 0 !important;
+  line-height: 1.1 !important;
+  overflow-wrap: anywhere !important;  /* переносится */
+  word-break: break-word !important;
+}
+
+.dialog-body{
+  padding-top: 8px !important;  /* убираем ощущение “дыры” */
+}
+/* ===== Align modal title vertically with Close button ===== */
+
+.dialog-header{
+  align-items: center !important;   /* вместо start */
+}
+
+#mTitle{
+  line-height: 1.15 !important;
+  display: flex !important;
+  align-items: center !important;
+}
